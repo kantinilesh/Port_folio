@@ -2,188 +2,179 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { SectionHeader } from './SectionHeader';
 import { SOCIALS, PERSONAL } from '../data';
-import { useSoundController } from '../hooks/useSoundController';
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
-export function Contact() {
-  const [submitted, setSubmitted] = useState(false);
-  const { playHover, playTransition } = useSoundController();
+const TERMINAL_LINES = [
+  { type: 'input', text: '$ whoami' },
+  { type: 'output', text: `Nilesh Kanti — ${PERSONAL.role}` },
+  { type: 'input', text: '$ cat contact.txt' },
+  { type: 'output', text: PERSONAL.email },
+  { type: 'input', text: '$ echo "Let\'s build something together"' },
+  { type: 'output', text: 'Ready when you are.' },
+];
+
+function TerminalLine({ line, delay }: { line: typeof TERMINAL_LINES[0]; delay: number }) {
+  const [visible, setVisible] = useState(false);
+  const [typed, setTyped] = useState('');
+  const text = line.text;
 
   useEffect(() => {
-    if (submitted) {
-      playTransition();
+    const show = setTimeout(() => setVisible(true), delay);
+    return () => clearTimeout(show);
+  }, [delay]);
+
+  useEffect(() => {
+    if (!visible) return;
+    if (line.type === 'output') {
+      setTyped(text);
+      return;
     }
-  }, [submitted, playTransition]);
+    let i = 0;
+    const interval = setInterval(() => {
+      i++;
+      setTyped(text.slice(0, i));
+      if (i >= text.length) clearInterval(interval);
+    }, 35);
+    return () => clearInterval(interval);
+  }, [visible, text, line.type]);
+
+  if (!visible) return null;
 
   return (
-    <section className="relative w-full min-h-screen flex items-center justify-center px-6 py-20 pointer-events-none">
-      <div className="max-w-6xl w-full relative z-10 pointer-events-auto">
-        <SectionHeader
-          world="FINAL CASTLE"
-          title="Contact"
-          subtitle="Let's build something together."
-          accent="#E52521"
-        />
+    <div className={`font-mono text-xs sm:text-sm ${
+      line.type === 'input' ? 'text-accent/60' : 'text-white/35'
+    }`}>
+      {typed}
+      {line.type === 'input' && typed.length < text.length && (
+        <span className="cursor-blink text-accent/60">▊</span>
+      )}
+    </div>
+  );
+}
 
-        <div className="grid md:grid-cols-2 gap-16 md:gap-20">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ margin: '-20%' }}
-            transition={{ duration: 0.7, ease }}
-          >
-            <p className="text-white/40 text-sm sm:text-base font-light leading-relaxed mb-8">
-              Whether it's an AI project, a systems challenge, or just a conversation about building great software —
-              I'm always open to connecting.
-            </p>
+export function Contact() {
+  const [submitted, setSubmitted] = useState(false);
 
-            <a
-              href={`mailto:${PERSONAL.email}`}
-              onMouseEnter={playHover}
-              className="inline-flex items-center gap-3 px-6 py-3 border border-white/[0.1] text-white/70 hover:text-white hover:border-mario-red/40 bg-black/40 backdrop-blur-md hover:bg-mario-red/10 transition-all duration-300 text-sm font-medium tracking-wide group"
-            >
-              <div className="w-2 h-2 bg-mario-red group-hover:animate-pulse" />
-              Say Hello
-              <span className="text-white/30 group-hover:translate-x-1 transition-transform">→</span>
-            </a>
+  return (
+    <section id="contact" className="relative w-full px-6 py-28">
+      <div className="max-w-5xl w-full mx-auto">
+        <SectionHeader number="06" title="Contact" />
 
-            <div className="mt-10 space-y-3">
-              {SOCIALS.map((social, i) => (
+        <div className="grid md:grid-cols-2 gap-16">
+          {/* Left — Interactive Terminal */}
+          <div>
+            <div className="border border-white/[0.06] bg-surface-light overflow-hidden">
+              {/* Terminal header bar */}
+              <div className="flex items-center gap-2 px-4 py-3 border-b border-white/[0.05]">
+                <div className="w-2.5 h-2.5 rounded-full bg-white/10" />
+                <div className="w-2.5 h-2.5 rounded-full bg-white/10" />
+                <div className="w-2.5 h-2.5 rounded-full bg-white/10" />
+                <span className="ml-3 text-white/15 text-[10px] font-mono tracking-wider">contact.sh</span>
+              </div>
+
+              {/* Terminal body */}
+              <div className="p-5 space-y-2 min-h-[200px]">
+                {TERMINAL_LINES.map((line, i) => (
+                  <TerminalLine key={i} line={line} delay={i * 800} />
+                ))}
+                <div className="mt-4 pt-4 border-t border-white/[0.04]">
+                  <span className="text-accent/30 text-[10px] font-mono tracking-wider cursor-blink">$ _</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Socials below terminal */}
+            <div className="mt-6 space-y-2">
+              {SOCIALS.map((social: { label: string; url: string }, i: number) => (
                 <motion.a
                   key={social.label}
                   href={social.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  onMouseEnter={playHover}
-                  initial={{ opacity: 0, x: -10 }}
+                  initial={{ opacity: 0, x: -8 }}
                   whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ margin: '-20%' }}
-                  transition={{ duration: 0.5, delay: 0.2 + i * 0.08, ease }}
-                  className="group flex items-center justify-between p-4 border border-white/[0.06] bg-black/40 backdrop-blur-md hover:bg-white/[0.04] hover:border-white/[0.1] transition-all duration-300"
+                  viewport={{ once: true, margin: '-40px' }}
+                  transition={{ duration: 0.4, delay: 0.2 + i * 0.06, ease }}
+                  className="group flex items-center justify-between p-3 border border-white/[0.04] bg-surface hover:bg-surface-light hover:border-white/[0.07] transition-all duration-500"
                 >
                   <div className="flex items-center gap-3">
-                    <div className="w-1.5 h-1.5 bg-white/20 group-hover:bg-mario-red transition-colors" />
-                    <span className="text-white/55 group-hover:text-white/90 text-sm font-medium tracking-wide transition-colors">
+                    <div className="w-[3px] h-[3px] bg-white/10 group-hover:bg-accent/40 rounded-full transition-colors duration-500" />
+                    <span className="text-white/35 group-hover:text-white/70 text-xs font-mono tracking-wide transition-colors duration-500">
                       {social.label}
                     </span>
                   </div>
-                  <span className="text-white/20 group-hover:text-white/50 group-hover:translate-x-1 transition-all duration-300 text-sm">
-                    →
-                  </span>
+                  <span className="text-white/10 group-hover:text-accent/30 transition-all duration-300 text-xs">→</span>
                 </motion.a>
               ))}
             </div>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ margin: '-20%' }}
-            transition={{ duration: 0.7, delay: 0.15, ease }}
-          >
+          {/* Right — Form */}
+          <div>
             {!submitted ? (
               <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  setSubmitted(true);
-                }}
-                className="space-y-4"
+                onSubmit={(e) => { e.preventDefault(); setSubmitted(true); }}
+                className="space-y-5"
               >
+                {[
+                  { label: 'Name', type: 'text', placeholder: 'Your name' },
+                  { label: 'Email', type: 'email', placeholder: 'your@email.com' },
+                ].map((field: { label: string; type: string; placeholder: string }) => (
+                  <div key={field.label}>
+                    <label className="text-white/15 text-[10px] font-mono tracking-[0.15em] uppercase block mb-2">{field.label}</label>
+                    <input
+                      type={field.type}
+                      required
+                      className="w-full px-4 py-3 bg-surface border border-white/[0.06] text-white text-sm font-light outline-none focus:border-accent/20 transition-colors duration-300 placeholder:text-white/10"
+                      placeholder={field.placeholder}
+                    />
+                  </div>
+                ))}
+
                 <div>
-                  <label className="font-retro text-[7px] text-white/25 tracking-[0.2em] block mb-2">NAME</label>
-                  <input
-                    type="text"
-                    required
-                    className="w-full px-4 py-3 bg-black/40 backdrop-blur-md border border-white/[0.08] text-white text-sm font-light outline-none focus:border-white/20 transition-colors placeholder:text-white/15"
-                    placeholder="Your name"
-                  />
-                </div>
-                <div>
-                  <label className="font-retro text-[7px] text-white/25 tracking-[0.2em] block mb-2">EMAIL</label>
-                  <input
-                    type="email"
-                    required
-                    className="w-full px-4 py-3 bg-black/40 backdrop-blur-md border border-white/[0.08] text-white text-sm font-light outline-none focus:border-white/20 transition-colors placeholder:text-white/15"
-                    placeholder="your@email.com"
-                  />
-                </div>
-                <div>
-                  <label className="font-retro text-[7px] text-white/25 tracking-[0.2em] block mb-2">MESSAGE</label>
+                  <label className="text-white/15 text-[10px] font-mono tracking-[0.15em] uppercase block mb-2">Message</label>
                   <textarea
                     required
-                    rows={4}
-                    className="w-full px-4 py-3 bg-black/40 backdrop-blur-md border border-white/[0.08] text-white text-sm font-light outline-none focus:border-white/20 transition-colors resize-none placeholder:text-white/15"
-                    placeholder="Your message..."
+                    rows={5}
+                    className="w-full px-4 py-3 bg-surface border border-white/[0.06] text-white text-sm font-light outline-none focus:border-accent/20 transition-colors duration-300 resize-none placeholder:text-white/10"
+                    placeholder="Let's build something..."
                   />
                 </div>
+
                 <button
                   type="submit"
-                  onMouseEnter={playHover}
-                  className="w-full px-6 py-3 bg-black/60 backdrop-blur-md border border-white/[0.1] text-white/70 hover:text-white hover:bg-white/[0.08] hover:border-white/20 transition-all duration-300 text-sm font-medium tracking-wide flex items-center justify-center gap-2.5 group"
+                  className="w-full px-6 py-3 bg-surface border border-white/[0.06] text-white/50 hover:text-white hover:bg-surface-light hover:border-accent/15 transition-all duration-500 text-xs font-mono uppercase tracking-wider flex items-center justify-center gap-2"
                 >
-                  <div className="w-1.5 h-1.5 bg-mario-red" />
-                  Send Message
-                  <span className="text-white/30 group-hover:translate-x-1 transition-transform">→</span>
+                  send message <span className="text-accent/30">→</span>
                 </button>
               </form>
             ) : (
               <motion.div
-                initial={{ opacity: 0, scale: 0.95 }}
+                initial={{ opacity: 0, scale: 0.97 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, ease }}
-                className="flex flex-col items-center justify-center h-full min-h-[300px] text-center p-6 border border-white/[0.06] bg-black/40 backdrop-blur-md"
+                className="flex flex-col items-center justify-center min-h-[380px] text-center p-8 border border-white/[0.05] bg-surface"
               >
-                <motion.div
-                  initial={{ y: 20, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ duration: 0.8, delay: 0.2, ease }}
-                  className="text-4xl mb-4"
-                >
-                  🚩
-                </motion.div>
-                <motion.div
-                  initial={{ scaleY: 0 }}
-                  animate={{ scaleY: 1 }}
-                  transition={{ duration: 0.6, delay: 0.4, ease }}
-                  className="w-[2px] h-8 bg-mario-red/40 mb-4 origin-bottom"
-                />
-                <h3 className="text-lg font-bold text-white mb-2">Castle Reached!</h3>
-                <p className="text-white/40 text-sm font-light">
-                  Message sent. I'll get back to you soon.
-                </p>
-                <div className="mt-4 flex gap-1">
-                  <div className="w-2 h-2 bg-mario-red" />
-                  <div className="w-2 h-2 bg-mario-gold" />
-                  <div className="w-2 h-2 bg-mario-green" />
-                </div>
+                <div className="w-12 h-[1px] bg-accent/25 mb-6" />
+                <h3 className="font-display text-xl font-medium text-white/85 mb-2">Message Sent</h3>
+                <p className="text-white/30 text-sm font-light">I'll get back to you soon.</p>
+                <div className="w-12 h-[1px] bg-accent/25 mt-6" />
               </motion.div>
             )}
-          </motion.div>
+          </div>
         </div>
 
+        {/* Footer */}
         <motion.footer
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
-          viewport={{ margin: '-20%' }}
-          transition={{ duration: 0.6, delay: 0.3, ease }}
-          className="mt-20 border-t border-white/[0.06] pt-8"
+          viewport={{ once: true, margin: '-40px' }}
+          transition={{ duration: 0.6, delay: 0.2, ease }}
+          className="mt-24 border-t border-white/[0.03] pt-8"
         >
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-3">
-              <div className="flex gap-1">
-                <div className="w-1.5 h-1.5 bg-mario-red" />
-                <div className="w-1.5 h-1.5 bg-mario-gold" />
-                <div className="w-1.5 h-1.5 bg-mario-green" />
-                <div className="w-1.5 h-1.5 bg-mario-blue" />
-              </div>
-              <span className="text-white/25 text-xs font-medium tracking-wide">
-                {PERSONAL.name}
-              </span>
-            </div>
-            <span className="font-retro text-[7px] text-white/15 tracking-[0.2em]">
-              © 2026 · GAME OVER? NEVER.
-            </span>
+            <span className="text-white/15 text-xs font-mono tracking-wide">{PERSONAL.name}</span>
+            <span className="text-white/8 text-[10px] font-mono tracking-[0.15em]">© 2026</span>
           </div>
         </motion.footer>
       </div>

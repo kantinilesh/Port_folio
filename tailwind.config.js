@@ -7,15 +7,15 @@ export default {
     extend: {
       fontFamily: {
         sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
-        retro: ['"Press Start 2P"', 'monospace'],
+        display: ['"Playfair Display"', 'Georgia', 'serif'],
+        mono: ['"JetBrains Mono"', 'monospace'],
       },
       colors: {
-        mario: {
-          red: '#E52521',
-          gold: '#FFD700',
-          blue: '#049CD8',
-          green: '#43B047',
-          orange: '#FFA500',
+        accent: '#c4a35a',
+        surface: {
+          DEFAULT: '#0a0a0a',
+          light: '#111111',
+          lighter: '#1a1a1a',
         },
       },
     },

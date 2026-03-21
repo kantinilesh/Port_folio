@@ -1,10 +1,8 @@
-import { useState, Suspense } from 'react';
-import { AnimatePresence } from 'framer-motion';
-import { Canvas } from '@react-three/fiber';
-import { ScrollControls, Scroll } from '@react-three/drei';
+import { useState, useEffect } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 
 import { Loader } from './components/Loader';
-import { Scene } from './components/Scene';
+import { SpotlightCursor } from './components/effects/SpotlightCursor';
 
 import { Hero } from './components/Hero';
 import { About } from './components/About';
@@ -13,14 +11,25 @@ import { Experience } from './components/Experience';
 import { Projects } from './components/Projects';
 import { Achievements } from './components/Achievements';
 import { Contact } from './components/Contact';
-import { useSoundController } from './hooks/useSoundController';
+
+const NAV_ITEMS = ['About', 'Skills', 'Experience', 'Projects', 'Achievements', 'Contact'] as const;
 
 function App() {
   const [loading, setLoading] = useState(true);
-  const { isMuted, setIsMuted } = useSoundController();
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 50);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollTo = (id: string) => {
+    document.getElementById(id.toLowerCase())?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   return (
-    <div className="w-full h-screen bg-black text-white overflow-hidden relative selection:bg-mario-red/30">
+    <div className="relative bg-black text-white dot-grid grain min-h-screen">
       <AnimatePresence mode="wait">
         {loading && (
           <Loader key="loader" onComplete={() => setLoading(false)} />
@@ -29,46 +38,51 @@ function App() {
 
       {!loading && (
         <>
-          {/* Sound Toggle UI */}
-          <button
-            onClick={() => setIsMuted(!isMuted)}
-            className="fixed top-6 right-6 z-50 w-10 h-10 flex items-center justify-center bg-black/50 border border-white/10 backdrop-blur-md rounded-full text-white/50 hover:text-white transition-colors"
-          >
-            {isMuted ? '🔇' : '🔊'}
-          </button>
+          <SpotlightCursor />
 
-          <Canvas 
-            camera={{ position: [0, 0, 5], fov: 75 }}
-            dpr={[1, 2]}
-            gl={{ antialias: true, alpha: false }}
+          {/* Nav Bar */}
+          <motion.nav
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+              scrolled
+                ? 'bg-black/60 backdrop-blur-xl border-b border-white/[0.04]'
+                : 'bg-transparent'
+            }`}
           >
-            <Suspense fallback={null}>
-              <ScrollControls pages={7} damping={0.25} maxSpeed={0.5}>
-                {/* 3D World */}
-                <Scene />
+            <div className="max-w-5xl mx-auto flex items-center justify-between px-6 h-16">
+              <button
+                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                className="text-white/50 text-xs font-mono tracking-[0.15em] hover:text-white transition-colors"
+              >
+                NK
+              </button>
 
-                {/* DOM Overlay */}
-                <Scroll html style={{ width: '100%' }}>
-                  <div className="flex flex-col w-full">
-                    {/* Page 1 */}
-                    <Hero />
-                    {/* Page 2 */}
-                    <About />
-                    {/* Page 3 */}
-                    <Skills />
-                    {/* Page 4 */}
-                    <Experience />
-                    {/* Page 5 */}
-                    <Projects />
-                    {/* Page 6 */}
-                    <Achievements />
-                    {/* Page 7 */}
-                    <Contact />
-                  </div>
-                </Scroll>
-              </ScrollControls>
-            </Suspense>
-          </Canvas>
+              <div className="hidden sm:flex items-center gap-6">
+                {NAV_ITEMS.map(item => (
+                  <button
+                    key={item}
+                    onClick={() => scrollTo(item)}
+                    className="text-white/25 text-[10px] font-mono tracking-[0.15em] uppercase hover:text-white/60 transition-colors duration-300"
+                  >
+                    {item}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </motion.nav>
+
+          {/* Sections */}
+          <main>
+            <Hero />
+            <About />
+            <Skills />
+            <Experience />
+            <Projects />
+            <Achievements />
+            <Contact />
+          </main>
         </>
       )}
     </div>

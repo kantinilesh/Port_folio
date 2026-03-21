@@ -1,58 +1,40 @@
 import { motion } from 'framer-motion';
 import { SectionHeader } from './SectionHeader';
 import { ACHIEVEMENTS } from '../data';
-import { useSoundController } from '../hooks/useSoundController';
+import { MagneticCard } from './effects/MagneticCard';
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
 export function Achievements() {
-  const { playHover } = useSoundController();
-
   return (
-    <section className="relative w-full min-h-screen flex items-center justify-center px-6 py-20 pointer-events-none">
-      <div className="max-w-6xl w-full relative z-10 pointer-events-auto">
-        <SectionHeader
-          world="TROPHIES"
-          title="Achievements"
-          subtitle="Milestones unlocked."
-          accent="#FFD700"
-        />
+    <section id="achievements" className="relative w-full px-6 py-28">
+      <div className="max-w-5xl w-full mx-auto">
+        <SectionHeader number="05" title="Recognition" />
 
-        <div className="grid sm:grid-cols-3 gap-4">
-          {ACHIEVEMENTS.map((ach, i) => (
-            <motion.div
-              key={ach.title}
-              onMouseEnter={playHover}
-              initial={{ opacity: 0, y: 20, scale: 0.96 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ margin: '-20%' }}
-              transition={{ duration: 0.6, delay: 0.1 + i * 0.12, ease }}
-              className="group p-6 sm:p-8 border border-white/[0.06] bg-black/40 backdrop-blur-md hover:bg-white/[0.04] transition-all duration-300 relative overflow-hidden text-center"
-            >
-              <div
-                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none shine-sweep"
-                style={{
-                  background: `linear-gradient(105deg, transparent 40%, ${ach.shine}08 45%, ${ach.shine}15 50%, ${ach.shine}08 55%, transparent 60%)`,
-                }}
-              />
+        <div className="grid sm:grid-cols-3 gap-5">
+          {ACHIEVEMENTS.map((ach: { title: string; description: string; year: string }, i: number) => (
+            <MagneticCard key={ach.title} strength={0.1}>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-60px' }}
+                transition={{ duration: 0.6, delay: 0.1 + i * 0.12, ease }}
+                className="group p-7 border border-white/[0.05] bg-surface hover:bg-surface-light hover:border-white/[0.08] transition-all duration-500"
+              >
+                <span className="text-accent/20 text-[10px] font-mono tracking-[0.15em] block mb-5">
+                  {ach.year}
+                </span>
 
-              <div className="text-4xl sm:text-5xl mb-5 grayscale group-hover:grayscale-0 transition-all duration-500 transform group-hover:scale-110">
-                {ach.icon}
-              </div>
+                <div className="w-6 h-[1px] bg-accent/15 group-hover:w-12 group-hover:bg-accent/35 transition-all duration-700 mb-5" />
 
-              <h3 className="text-sm sm:text-base font-bold text-white tracking-tight mb-2">
-                {ach.title}
-              </h3>
-              <p className="text-white/35 text-xs font-light leading-relaxed">
-                {ach.description}
-              </p>
-
-              <div className="mt-5 flex justify-center gap-0.5">
-                <div className="w-1.5 h-1.5 opacity-30 group-hover:opacity-80 transition-opacity" style={{ backgroundColor: ach.shine }} />
-                <div className="w-1.5 h-1.5 opacity-20 group-hover:opacity-60 transition-opacity" style={{ backgroundColor: ach.shine }} />
-                <div className="w-1.5 h-1.5 opacity-10 group-hover:opacity-40 transition-opacity" style={{ backgroundColor: ach.shine }} />
-              </div>
-            </motion.div>
+                <h3 className="font-display text-base sm:text-lg font-medium text-white/85 tracking-tight mb-2">
+                  {ach.title}
+                </h3>
+                <p className="text-white/25 text-xs font-light leading-relaxed">
+                  {ach.description}
+                </p>
+              </motion.div>
+            </MagneticCard>
           ))}
         </div>
       </div>

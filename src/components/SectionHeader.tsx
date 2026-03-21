@@ -1,60 +1,41 @@
-import { motion } from 'framer-motion';
-import { useSoundController } from '../hooks/useSoundController';
+import { useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
 
 interface SectionHeaderProps {
-  world: string;
+  number: string;
   title: string;
-  subtitle?: string;
-  accent?: string;
 }
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
-export function SectionHeader({ world, title, subtitle, accent = '#E52521' }: SectionHeaderProps) {
-  const { playTransition } = useSoundController();
+export function SectionHeader({ number, title }: SectionHeaderProps) {
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, margin: '-80px' });
 
   return (
-    <div className="mb-12 md:mb-16">
+    <div ref={ref} className="mb-16 md:mb-20">
       <motion.div
-
-        initial={{ opacity: 0, x: -20 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true, margin: '-20px' }}
+        initial={{ opacity: 0, x: -16 }}
+        animate={isInView ? { opacity: 1, x: 0 } : {}}
         transition={{ duration: 0.6, ease }}
-        className="flex items-center gap-3 mb-4"
+        className="flex items-center gap-4 mb-6"
       >
-        <div className="flex gap-1">
-          <div className="w-1.5 h-1.5" style={{ backgroundColor: accent }} />
-          <div className="w-1.5 h-1.5 bg-mario-gold" />
-          <div className="w-1.5 h-1.5 bg-mario-green" />
-        </div>
-        <span className="font-retro text-[8px] sm:text-[9px] tracking-[0.3em] text-white/30 uppercase">
-          {world}
+        <span className="text-accent/35 text-[10px] font-mono tracking-[0.2em]">
+          {number}
         </span>
+        <div className="w-12 h-[1px] bg-white/[0.06]" />
       </motion.div>
 
-      <motion.h2
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: '-20px' }}
-        onViewportEnter={() => playTransition()}
-        transition={{ duration: 0.8, delay: 0.1, ease }}
-        className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white mb-3"
-      >
-        {title}
-      </motion.h2>
-
-      {subtitle && (
-        <motion.p
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-20px' }}
-          transition={{ duration: 0.6, delay: 0.2, ease }}
-          className="text-white/40 text-sm sm:text-base max-w-xl font-light"
+      <div className="overflow-hidden">
+        <motion.h2
+          initial={{ opacity: 0, y: 40 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.9, delay: 0.1, ease }}
+          className="font-display text-4xl sm:text-5xl md:text-6xl font-medium tracking-tight text-white/95 leading-[1.1]"
         >
-          {subtitle}
-        </motion.p>
-      )}
+          {title}
+        </motion.h2>
+      </div>
     </div>
   );
 }

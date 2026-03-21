@@ -1,83 +1,71 @@
 import { motion } from 'framer-motion';
 import { SectionHeader } from './SectionHeader';
 import { PERSONAL, STATS, ABOUT_EXPERTISE } from '../data';
-import { useSoundController } from '../hooks/useSoundController';
+import { BlurText } from './effects/BlurText';
+import { MagneticCard } from './effects/MagneticCard';
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
 export function About() {
-  const { playHover } = useSoundController();
-
   return (
-    <section className="relative w-full min-h-screen flex items-center justify-center px-6 py-20 pointer-events-none">
-      <div className="max-w-6xl w-full relative z-10 pointer-events-auto">
-        <SectionHeader world="WORLD 2" title="About" subtitle="The origin story." accent="#049CD8" />
+    <section id="about" className="relative w-full px-6 py-28">
+      <div className="max-w-5xl w-full mx-auto">
+        <SectionHeader number="01" title="About" />
 
-        <div className="grid md:grid-cols-5 gap-12 mb-16">
-          <div className="md:col-span-3 space-y-6">
-            {PERSONAL.bio.map((para, i) => (
-              <motion.p
+        <div className="grid md:grid-cols-5 gap-16 mb-20">
+          <div className="md:col-span-3 space-y-4">
+            {PERSONAL.bio.map((para: string, i: number) => (
+              <BlurText
                 key={i}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ margin: '-20%' }}
-                transition={{ duration: 0.7, delay: i * 0.15, ease }}
-                className="text-white/45 text-sm sm:text-base font-light leading-relaxed"
+                delay={i * 0.15}
+                className="text-white/40 text-sm sm:text-base font-light leading-[1.9]"
               >
                 {para}
-              </motion.p>
+              </BlurText>
             ))}
           </div>
 
           <div className="md:col-span-2 grid grid-cols-2 gap-3">
-            {STATS.map((stat, i) => (
-              <motion.div
-                key={stat.label}
-                onMouseEnter={playHover}
-                initial={{ opacity: 0, y: 20, scale: 0.96 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                viewport={{ margin: '-20%' }}
-                transition={{ duration: 0.6, delay: 0.1 + i * 0.08, ease }}
-                className="group p-5 border border-white/[0.06] bg-black/40 backdrop-blur-md hover:bg-white/[0.04] transition-colors duration-300 pointer-events-auto cursor-default"
-              >
-                <p className="text-2xl sm:text-3xl font-bold text-white tracking-tight mb-1">
-                  {stat.value}
-                </p>
-                <p className="text-white/25 text-[10px] sm:text-xs font-medium tracking-wider uppercase">
-                  {stat.label}
-                </p>
-              </motion.div>
+            {STATS.map((stat: { label: string; value: string }, i: number) => (
+              <MagneticCard key={stat.label}>
+                <motion.div
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: '-60px' }}
+                  transition={{ duration: 0.5, delay: 0.1 + i * 0.08, ease }}
+                  className="p-5 border border-white/[0.05] bg-surface hover:bg-surface-light transition-colors duration-500 cursor-default"
+                >
+                  <p className="text-2xl sm:text-3xl font-display font-medium text-white/90 tracking-tight mb-1">
+                    {stat.value}
+                  </p>
+                  <p className="text-white/20 text-[10px] font-mono tracking-wider uppercase">
+                    {stat.label}
+                  </p>
+                </motion.div>
+              </MagneticCard>
             ))}
           </div>
         </div>
 
-        {/* Map progression */}
-        <div className="relative">
-          <div className="absolute top-1/2 left-0 right-0 h-[1px] bg-white/[0.04] hidden md:block" />
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {ABOUT_EXPERTISE.map((item, i) => (
+        {/* Expertise */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {ABOUT_EXPERTISE.map((item: { title: string; description: string }, i: number) => (
+            <MagneticCard key={item.title} strength={0.1}>
               <motion.div
-                key={item.title}
-                onMouseEnter={playHover}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ margin: '-20%' }}
-                transition={{ duration: 0.6, delay: 0.15 + i * 0.12, ease }}
-                className="group relative p-5 border border-white/[0.06] bg-black/40 backdrop-blur-md hover:bg-white/[0.04] transition-all duration-300 pointer-events-auto"
+                viewport={{ once: true, margin: '-60px' }}
+                transition={{ duration: 0.5, delay: 0.1 + i * 0.1, ease }}
+                className="group p-5 border border-white/[0.05] bg-surface hover:bg-surface-light transition-all duration-500"
               >
-                <div className="absolute -top-[5px] left-6 w-2.5 h-2.5 bg-mario-blue border-2 border-black hidden md:block" />
-                <span className="font-retro text-[7px] text-mario-blue/50 tracking-[0.2em] block mb-2">
-                  NODE {i + 1}
-                </span>
-                <h3 className="text-sm font-semibold text-white tracking-tight mb-1">
-                  {item.title}
-                </h3>
-                <p className="text-white/30 text-xs font-light leading-relaxed">
-                  {item.description}
-                </p>
+                <div className="flex items-center gap-2 mb-3">
+                  <div className="w-1 h-4 bg-accent/25 group-hover:bg-accent/50 transition-colors duration-500" />
+                  <h3 className="text-sm font-medium text-white/70 tracking-tight">{item.title}</h3>
+                </div>
+                <p className="text-white/25 text-xs font-light leading-relaxed">{item.description}</p>
               </motion.div>
-            ))}
-          </div>
+            </MagneticCard>
+          ))}
         </div>
       </div>
     </section>

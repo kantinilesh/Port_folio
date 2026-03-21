@@ -2,13 +2,13 @@
 
 export const PERSONAL = {
   name: 'Nilesh Kanti',
-  role: 'Computer Science Engineer | AI & Systems Builder',
-  tagline: 'Building scalable systems, AI-driven products, and data-powered solutions.',
+  role: 'Software Engineer & AI Specialist',
+  tagline: 'I design and build scalable systems, AI-driven products, and data-powered solutions that deliver measurable impact.',
   email: 'kantinilesh2312@gmail.com',
   location: 'India',
   bio: [
-    'Computer Science undergraduate with deep expertise in software development, cloud technologies, and data analytics. I thrive at the intersection of engineering and intelligence — building systems that scale, adapt, and deliver measurable impact.',
-    'From designing scalable APIs and event-driven architectures to crafting AI models that detect anomalies with 85% accuracy — every project I take on is shipped with precision and purpose.',
+    'Computer Science engineer with deep expertise in software development, cloud technologies, and data analytics. I work at the intersection of engineering and intelligence — building systems that scale, adapt, and create real business value.',
+    'From designing high-throughput APIs and event-driven architectures to building AI models with 85% anomaly detection accuracy — I ship with precision and purpose.',
   ],
 };
 
@@ -27,12 +27,12 @@ export const ABOUT_EXPERTISE = [
 ];
 
 export const SKILLS = [
-  { category: 'Languages', items: ['Python', 'Java', 'SQL', 'C++'], color: '#E52521' },
-  { category: 'Backend', items: ['REST APIs', 'Event-Driven Systems', 'Microservices'], color: '#43B047' },
-  { category: 'Frameworks', items: ['Spring Boot', 'Flask', 'FastAPI', 'React'], color: '#049CD8' },
-  { category: 'Databases', items: ['PostgreSQL', 'MySQL', 'DynamoDB', 'MongoDB'], color: '#FFD700' },
-  { category: 'Cloud', items: ['AWS EC2', 'S3', 'Lambda', 'RDS', 'Azure', 'Docker'], color: '#FFA500' },
-  { category: 'Data / ML', items: ['Pandas', 'NumPy', 'Scikit-learn', 'TensorFlow'], color: '#FFFFFF' },
+  { category: 'Languages', items: ['Python', 'Java', 'SQL', 'C++'] },
+  { category: 'Backend', items: ['REST APIs', 'Event-Driven Systems', 'Microservices'] },
+  { category: 'Frameworks', items: ['Spring Boot', 'Flask', 'FastAPI', 'React'] },
+  { category: 'Databases', items: ['PostgreSQL', 'MySQL', 'DynamoDB', 'MongoDB'] },
+  { category: 'Cloud', items: ['AWS EC2', 'S3', 'Lambda', 'RDS', 'Azure', 'Docker'] },
+  { category: 'Data & ML', items: ['Pandas', 'NumPy', 'Scikit-learn', 'TensorFlow'] },
 ];
 
 export const EXPERIENCE = [
@@ -41,7 +41,7 @@ export const EXPERIENCE = [
     role: 'Data & Software Intern',
     company: 'SRM Technologies',
     period: '2024 – 2025',
-    description: 'Engineered data pipelines and dashboards that transformed how the team tracks performance.',
+    description: 'Engineered data pipelines and dashboards that transformed how the team tracks performance and delivers value.',
     highlights: [
       'Improved onboarding efficiency by 25%',
       'Built dashboards tracking 20+ KPIs in real-time',
@@ -49,7 +49,6 @@ export const EXPERIENCE = [
       'Reduced client-reported issues by 30%',
     ],
     tech: ['Python', 'SQL', 'AWS', 'Tableau'],
-    boss: 'Data Dragon',
   },
   {
     id: 2,
@@ -63,14 +62,12 @@ export const EXPERIENCE = [
       'Reduced manual reporting effort by ~20%',
     ],
     tech: ['Python', 'TensorFlow', 'Flask', 'PostgreSQL'],
-    boss: 'AI Overlord',
   },
 ];
 
 export const PROJECTS = [
   {
     id: 1,
-    level: '1-1',
     title: 'InvenX',
     description: 'AI-powered inventory management platform with demand forecasting and logistics optimization.',
     metrics: ['18% forecast accuracy improvement', '12% logistics cost reduction'],
@@ -80,7 +77,6 @@ export const PROJECTS = [
   },
   {
     id: 2,
-    level: '1-2',
     title: 'ClimaShield',
     description: 'AI-driven climate risk scoring platform with Telegram bot integration and blockchain-based parametric insurance.',
     metrics: ['Real-time risk scoring', 'Blockchain payout automation'],
@@ -90,7 +86,6 @@ export const PROJECTS = [
   },
   {
     id: 3,
-    level: '2-1',
     title: 'AI Fitness Coach',
     description: 'Real-time posture correction system using computer vision with AI-powered voice feedback for workout guidance.',
     metrics: ['Real-time posture correction', 'AI voice feedback system'],
@@ -101,9 +96,9 @@ export const PROJECTS = [
 ];
 
 export const ACHIEVEMENTS = [
-  { icon: '🏆', title: 'National GenAI Hackathon', description: 'Winner — NIT Andhra Pradesh', shine: '#FFD700' },
-  { icon: '🥈', title: 'Codefest Chennai', description: 'Runner-up', shine: '#C0C0C0' },
-  { icon: '☁️', title: 'AWS Community Builder', description: 'Recognized by Amazon Web Services', shine: '#FF9900' },
+  { title: 'National GenAI Hackathon', description: 'Winner — NIT Andhra Pradesh', year: '2024' },
+  { title: 'Codefest Chennai', description: 'Runner-up', year: '2024' },
+  { title: 'AWS Community Builder', description: 'Recognized by Amazon Web Services', year: '2024' },
 ];
 
 export const SOCIALS = [
@@ -111,3 +106,7 @@ export const SOCIALS = [
   { label: 'LinkedIn', url: 'https://linkedin.com/in/nileshkanti' },
   { label: 'Email', url: 'mailto:kantinilesh2312@gmail.com' },
 ];
+
+export const NAV_SECTIONS = [
+  'Hero', 'About', 'Skills', 'Experience', 'Projects', 'Achievements', 'Contact',
+] as const;
