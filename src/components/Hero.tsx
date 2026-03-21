@@ -8,18 +8,9 @@ export function Hero() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8, ease }}
-      className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden w-full px-6"
+      className="relative min-h-screen flex flex-col items-center justify-center w-full px-6 pointer-events-none"
     >
-      {/* Ambient glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full pointer-events-none blur-[140px] opacity-20"
-        style={{ background: 'radial-gradient(circle, #E52521 0%, #FFD700 40%, #049CD8 80%, transparent 100%)' }}
-      />
-
-      {/* Noise overlay */}
-      <div className="absolute inset-0 bg-noise pointer-events-none mix-blend-overlay opacity-20" />
-
-      <main className="relative z-10 w-full max-w-5xl mx-auto flex flex-col items-center justify-center text-center">
-
+      <main className="relative z-10 w-full max-w-5xl mx-auto flex flex-col items-center justify-center text-center pointer-events-auto">
         {/* Pixel accent dots */}
         <motion.div
           initial={{ opacity: 0 }}
@@ -49,11 +40,9 @@ export function Hero() {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 1, delay: 0.35, ease }}
           className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-tighter text-white leading-none"
-          style={{
-            textShadow: '0 0 30px rgba(229,37,33,0.15), 0 0 60px rgba(255,215,0,0.08)',
-          }}
+          style={{ textShadow: '0 0 30px rgba(229,37,33,0.15), 0 0 60px rgba(255,215,0,0.08)' }}
         >
-          Tushar Kanti
+          Nilesh Kanti
         </motion.h1>
 
         {/* Tagline */}
