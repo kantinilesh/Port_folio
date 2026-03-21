@@ -1,65 +1,65 @@
-// ── Portfolio Data ─────────────────────────────────────────────
+// ── JARVIS Portfolio Data ──────────────────────────────────────
 
 export const PERSONAL = {
   name: 'Nilesh Kanti',
-  role: 'Software Engineer & AI Specialist',
-  tagline: 'I design and build scalable systems, AI-driven products, and data-powered solutions that deliver measurable impact.',
+  role: 'AI Systems Engineer | Data & Cloud Developer',
+  tagline: 'Building scalable systems, AI-driven platforms, and data intelligence solutions.',
   email: 'kantinilesh2312@gmail.com',
   location: 'India',
   bio: [
-    'Computer Science engineer with deep expertise in software development, cloud technologies, and data analytics. I work at the intersection of engineering and intelligence — building systems that scale, adapt, and create real business value.',
-    'From designing high-throughput APIs and event-driven architectures to building AI models with 85% anomaly detection accuracy — I ship with precision and purpose.',
+    'Computer Science undergraduate with deep expertise in software development, cloud technologies, and data analytics.',
+    'I operate at the intersection of AI engineering, scalable systems, and real-world data infrastructure — building things that solve measurable problems.',
+  ],
+  stats: [
+    { label: 'Projects Shipped', value: '10+' },
+    { label: 'Technologies', value: '20+' },
+    { label: 'Records / Day', value: '100K+' },
+    { label: 'Efficiency Gain', value: '25%' },
   ],
 };
 
-export const STATS = [
-  { label: 'Projects Shipped', value: '10+' },
-  { label: 'Technologies', value: '20+' },
-  { label: 'Records Processed', value: '100K+' },
-  { label: 'Efficiency Gained', value: '25%' },
-];
-
-export const ABOUT_EXPERTISE = [
-  { title: 'Scalable Systems', description: 'APIs, event-driven architecture, microservices' },
-  { title: 'AI & Machine Learning', description: 'Anomaly detection, NLP, computer vision' },
-  { title: 'Cloud & DevOps', description: 'AWS, Docker, CI/CD, infrastructure as code' },
-  { title: 'Data Analytics', description: 'Dashboards, large-scale processing, KPI tracking' },
-];
+export const NAV_MODULES = [
+  { id: 'hero', label: 'SYSTEM CORE' },
+  { id: 'about', label: 'CORE SYSTEM' },
+  { id: 'skills', label: 'DATA ENGINE' },
+  { id: 'experience', label: 'DEPLOY LOGS' },
+  { id: 'projects', label: 'SIMULATIONS' },
+  { id: 'achievements', label: 'SYS STATUS' },
+  { id: 'contact', label: 'TERMINAL' },
+] as const;
 
 export const SKILLS = [
-  { category: 'Languages', items: ['Python', 'Java', 'SQL', 'C++'] },
-  { category: 'Backend', items: ['REST APIs', 'Event-Driven Systems', 'Microservices'] },
-  { category: 'Frameworks', items: ['Spring Boot', 'Flask', 'FastAPI', 'React'] },
-  { category: 'Databases', items: ['PostgreSQL', 'MySQL', 'DynamoDB', 'MongoDB'] },
-  { category: 'Cloud', items: ['AWS EC2', 'S3', 'Lambda', 'RDS', 'Azure', 'Docker'] },
-  { category: 'Data & ML', items: ['Pandas', 'NumPy', 'Scikit-learn', 'TensorFlow'] },
+  { category: 'LANGUAGES', items: ['Python', 'Java', 'SQL', 'C++'], status: 'ACTIVE' },
+  { category: 'BACKEND', items: ['REST APIs', 'Event-Driven', 'Microservices'], status: 'ACTIVE' },
+  { category: 'FRAMEWORKS', items: ['Spring Boot', 'Flask', 'FastAPI', 'React'], status: 'LOADED' },
+  { category: 'DATABASES', items: ['PostgreSQL', 'MySQL', 'DynamoDB', 'MongoDB'], status: 'ACTIVE' },
+  { category: 'CLOUD', items: ['AWS EC2', 'S3', 'Lambda', 'RDS', 'Azure', 'Docker'], status: 'ACTIVE' },
+  { category: 'DATA / ML', items: ['Pandas', 'NumPy', 'Scikit-learn', 'TensorFlow'], status: 'LOADED' },
 ];
 
 export const EXPERIENCE = [
   {
-    id: 1,
-    role: 'Data & Software Intern',
+    id: 'srm',
     company: 'SRM Technologies',
+    role: 'Data & Software Intern',
     period: '2024 – 2025',
-    description: 'Engineered data pipelines and dashboards that transformed how the team tracks performance and delivers value.',
-    highlights: [
-      'Improved onboarding efficiency by 25%',
-      'Built dashboards tracking 20+ KPIs in real-time',
-      'Processed 100K+ records/day through automated pipelines',
-      'Reduced client-reported issues by 30%',
+    logs: [
+      '[INFO] Improved onboarding efficiency by 25%',
+      '[INFO] Built dashboards tracking 20+ KPIs in real-time',
+      '[INFO] Processed 100K+ records/day through automated pipelines',
+      '[SUCCESS] Reduced client-reported issues by 30%',
     ],
     tech: ['Python', 'SQL', 'AWS', 'Tableau'],
   },
   {
-    id: 2,
-    role: 'AI Intern',
+    id: 'iocl',
     company: 'Indian Oil Corporation (IOCL)',
+    role: 'AI Intern',
     period: '2024',
-    description: 'Built intelligent systems for one of India\'s largest public sector enterprises.',
-    highlights: [
-      'Developed Digital Shift Handover System',
-      'Achieved ~85% accuracy in anomaly detection',
-      'Reduced manual reporting effort by ~20%',
+    logs: [
+      '[INFO] Developed Digital Shift Handover System',
+      '[INFO] Achieved ~85% accuracy in anomaly detection',
+      '[SUCCESS] Reduced manual reporting effort by ~20%',
     ],
     tech: ['Python', 'TensorFlow', 'Flask', 'PostgreSQL'],
   },
@@ -68,45 +68,77 @@ export const EXPERIENCE = [
 export const PROJECTS = [
   {
     id: 1,
+    codename: 'SIM-001',
     title: 'InvenX',
-    description: 'AI-powered inventory management platform with demand forecasting and logistics optimization.',
-    metrics: ['18% forecast accuracy improvement', '12% logistics cost reduction'],
+    subtitle: 'AI Inventory Intelligence System',
+    description: 'AI-powered inventory management platform with demand forecasting and logistics optimization using machine learning pipelines.',
+    metrics: [
+      { label: 'Forecast Accuracy', value: '+18%' },
+      { label: 'Logistics Cost', value: '-12%' },
+    ],
     tech: ['Python', 'ML', 'Flask', 'PostgreSQL'],
-    image: '/images/invenx.png',
+    status: 'DEPLOYED',
     github: 'https://github.com/kantinilesh/InvenX',
   },
   {
     id: 2,
+    codename: 'SIM-002',
     title: 'ClimaShield',
-    description: 'AI-driven climate risk scoring platform with Telegram bot integration and blockchain-based parametric insurance.',
-    metrics: ['Real-time risk scoring', 'Blockchain payout automation'],
+    subtitle: 'Climate Risk AI Platform',
+    description: 'AI-driven climate risk scoring platform with Telegram bot integration and blockchain-based parametric insurance automation.',
+    metrics: [
+      { label: 'Risk Scoring', value: 'Real-time' },
+      { label: 'Payout Automation', value: 'Blockchain' },
+    ],
     tech: ['Python', 'Blockchain', 'Telegram API', 'Weather API'],
-    image: '/images/climashield.png',
+    status: 'DEPLOYED',
     github: 'https://github.com/kantinilesh/ClimaShield',
   },
   {
     id: 3,
+    codename: 'SIM-003',
     title: 'AI Fitness Coach',
-    description: 'Real-time posture correction system using computer vision with AI-powered voice feedback for workout guidance.',
-    metrics: ['Real-time posture correction', 'AI voice feedback system'],
+    subtitle: 'Real-time Posture Intelligence',
+    description: 'Real-time posture correction system using computer vision and AI-powered voice feedback for intelligent workout guidance.',
+    metrics: [
+      { label: 'Posture Analysis', value: 'Real-time' },
+      { label: 'AI Voice Feedback', value: 'Active' },
+    ],
     tech: ['Python', 'OpenCV', 'MediaPipe', 'TTS'],
-    image: '/images/fitness.png',
+    status: 'ACTIVE',
     github: 'https://github.com/kantinilesh/AI-Fitness-Coach',
   },
 ];
 
 export const ACHIEVEMENTS = [
-  { title: 'National GenAI Hackathon', description: 'Winner — NIT Andhra Pradesh', year: '2024' },
-  { title: 'Codefest Chennai', description: 'Runner-up', year: '2024' },
-  { title: 'AWS Community Builder', description: 'Recognized by Amazon Web Services', year: '2024' },
+  {
+    code: 'ACH-01',
+    title: 'National GenAI Hackathon',
+    result: 'WINNER',
+    org: 'NIT Andhra Pradesh',
+    year: '2024',
+    color: '#00d4ff',
+  },
+  {
+    code: 'ACH-02',
+    title: 'Codefest Chennai',
+    result: 'RUNNER-UP',
+    org: 'Codefest',
+    year: '2024',
+    color: '#0080ff',
+  },
+  {
+    code: 'ACH-03',
+    title: 'AWS Community Builder',
+    result: 'RECOGNIZED',
+    org: 'Amazon Web Services',
+    year: '2024',
+    color: '#00c4a0',
+  },
 ];
 
 export const SOCIALS = [
-  { label: 'GitHub', url: 'https://github.com/kantinilesh' },
-  { label: 'LinkedIn', url: 'https://linkedin.com/in/nileshkanti' },
-  { label: 'Email', url: 'mailto:kantinilesh2312@gmail.com' },
+  { label: 'GitHub', url: 'https://github.com/kantinilesh', icon: 'GH' },
+  { label: 'LinkedIn', url: 'https://linkedin.com/in/nileshkanti', icon: 'LI' },
+  { label: 'Email', url: 'mailto:kantinilesh2312@gmail.com', icon: 'EM' },
 ];
-
-export const NAV_SECTIONS = [
-  'Hero', 'About', 'Skills', 'Experience', 'Projects', 'Achievements', 'Contact',
-] as const;
