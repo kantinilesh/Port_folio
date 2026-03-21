@@ -1,0 +1,108 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-black text-white antialiased font-sans;
+    margin: 0;
+    overflow-x: hidden;
+  }
+}
+
+@layer utilities {
+  .bg-noise {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.04'/%3E%3C/svg%3E");
+  }
+
+  .text-glow {
+    text-shadow: 0 0 40px rgba(255, 255, 255, 0.35), 0 0 80px rgba(255, 255, 255, 0.08);
+  }
+}
+
+/* ───────────── CRT Scanlines ───────────── */
+.scanlines::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.1) 2px,
+    rgba(0, 0, 0, 0.1) 4px
+  );
+  pointer-events: none;
+  z-index: 60;
+}
+
+/* ───────────── Floating Pixel Particles ───────────── */
+@keyframes pixelFloat {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0;
+  }
+  8% {
+    opacity: var(--pixel-opacity, 0.3);
+  }
+  85% {
+    opacity: var(--pixel-opacity, 0.3);
+  }
+  100% {
+    transform: translateY(-105vh) rotate(180deg);
+    opacity: 0;
+  }
+}
+
+.pixel-float {
+  position: absolute;
+  bottom: -8px;
+  animation: pixelFloat var(--float-duration, 5s) var(--float-delay, 0s) linear infinite;
+  image-rendering: pixelated;
+}
+
+/* ───────────── Glitch Text Effect ───────────── */
+@keyframes glitch {
+  0%, 100% {
+    text-shadow: inherit;
+    transform: translate(0);
+  }
+  8% {
+    text-shadow: -2px 0 #E52521, 2px 0 #049CD8;
+    transform: translate(2px, -1px);
+  }
+  16% {
+    text-shadow: 2px 0 #E52521, -2px 0 #049CD8;
+    transform: translate(-2px, 1px);
+  }
+  24% {
+    text-shadow: inherit;
+    transform: translate(0);
+  }
+}
+
+.glitch-text {
+  animation: glitch 0.35s ease-in-out;
+}
+
+/* ───────────── Pixel Progress Bar ───────────── */
+.pixel-progress-track {
+  image-rendering: pixelated;
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.08);
+}
+
+.pixel-progress-fill {
+  background: linear-gradient(90deg, #E52521, #FFD700, #43B047, #049CD8);
+  image-rendering: pixelated;
+}
+
+/* ───────────── Screen Flicker (subtle) ───────────── */
+@keyframes screenFlicker {
+  0%, 97%, 100% { opacity: 1; }
+  98% { opacity: 0.97; }
+  99% { opacity: 1; }
+}
+
+.screen-flicker {
+  animation: screenFlicker 4s infinite;
+}
