@@ -80,7 +80,9 @@ export function Terminal() {
                   className="flex items-center justify-between p-3 glass glass-hover transition-all duration-300 group"
                 >
                   <div className="flex items-center gap-3">
-                    <span className="w-6 h-6 flex items-center justify-center border border-cyan-DEFAULT/15 text-cyan-DEFAULT/40 text-[8px] font-mono">{s.icon}</span>
+                    <span className="w-7 h-7 flex items-center justify-center border border-cyan-DEFAULT/15 p-1">
+                      <img src={s.icon} alt={s.label} className="w-4 h-4 opacity-50 group-hover:opacity-90 transition-opacity" />
+                    </span>
                     <span className="text-white/35 text-xs font-mono group-hover:text-white/60 transition-colors">{s.label}</span>
                   </div>
                   <span className="text-white/10 group-hover:text-cyan-DEFAULT/40 transition-colors text-xs">→</span>

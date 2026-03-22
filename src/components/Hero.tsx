@@ -1,62 +1,31 @@
-import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { PERSONAL } from '../data';
+import { ScrambleText } from './effects/ScrambleText';
 
 const ease = [0.16, 1, 0.3, 1] as const;
-
-function TypewriterText({ text, delay = 0, className = '' }: { text: string; delay?: number; className?: string }) {
-  const [displayed, setDisplayed] = useState('');
-  const [started, setStarted] = useState(false);
-
-  useEffect(() => {
-    const t = setTimeout(() => setStarted(true), delay * 1000);
-    return () => clearTimeout(t);
-  }, [delay]);
-
-  useEffect(() => {
-    if (!started) return;
-    let i = 0;
-    const interval = setInterval(() => {
-      i++;
-      setDisplayed(text.slice(0, i));
-      if (i >= text.length) clearInterval(interval);
-    }, 25);
-    return () => clearInterval(interval);
-  }, [started, text]);
-
-  return (
-    <span className={className}>
-      {displayed}
-      {displayed.length < text.length && started && (
-        <span className="cursor-blink text-cyan-DEFAULT/60 ml-0.5">▊</span>
-      )}
-    </span>
-  );
-}
 
 export function Hero() {
   return (
     <section id="hero" className="relative min-h-screen flex flex-col items-center justify-center px-6">
       <div className="relative z-10 w-full max-w-4xl mx-auto text-center">
 
-        {/* System tag */}
+        {/* System tag — simple fade in, no scramble */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.3, ease }}
+          transition={{ duration: 0.8, delay: 0.3, ease }}
           className="inline-flex items-center gap-2.5 mb-10 px-4 py-1.5 border border-cyan-DEFAULT/15 bg-cyan-DEFAULT/[0.03]"
         >
           <div className="w-1.5 h-1.5 rounded-full bg-cyan-DEFAULT/70 animate-pulse" />
           <span className="text-cyan-DEFAULT/50 text-[10px] font-mono tracking-[0.2em]">AI SYSTEMS INITIALIZED</span>
         </motion.div>
 
-        {/* Name */}
+        {/* Name — simple, bold, no scramble animation */}
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.5, ease }}
           className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight text-white mb-6 leading-[0.95]"
-          style={{ fontFamily: 'Inter, system-ui, sans-serif' }}
         >
           <span className="block text-white/90">{PERSONAL.name.split(' ')[0]}</span>
           <span className="block text-cyan-DEFAULT" style={{ textShadow: '0 0 40px rgba(0,212,255,0.4)' }}>
@@ -64,21 +33,21 @@ export function Hero() {
           </span>
         </motion.h1>
 
-        {/* Role — typewriter */}
+        {/* Role — ScrambleText on hover only (plays once, not auto) */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.4, delay: 1.2, ease }}
+          transition={{ duration: 0.6, delay: 1.2, ease }}
           className="text-sm sm:text-base font-mono text-white/35 mb-4 tracking-wide"
         >
-          <TypewriterText text={PERSONAL.role} delay={1.3} />
+          <ScrambleText text={PERSONAL.role} trigger="hover" speed={25} />
         </motion.div>
 
         {/* Tagline */}
         <motion.p
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 2.2, ease }}
+          transition={{ duration: 0.6, delay: 1.6, ease }}
           className="text-white/25 text-xs sm:text-sm font-light max-w-md mx-auto leading-relaxed"
         >
           {PERSONAL.tagline}
@@ -88,7 +57,7 @@ export function Hero() {
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 2.6, ease }}
+          transition={{ duration: 0.6, delay: 2, ease }}
           className="mt-14 grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-2xl mx-auto"
         >
           {PERSONAL.stats.map((stat) => (
@@ -106,7 +75,7 @@ export function Hero() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 3, ease }}
+          transition={{ duration: 0.6, delay: 2.4, ease }}
           className="mt-10 flex items-center justify-center gap-4"
         >
           <button
@@ -127,7 +96,7 @@ export function Hero() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 3.2 }}
+          transition={{ duration: 0.6, delay: 2.8 }}
           className="absolute -bottom-20 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
         >
           <span className="text-white/10 text-[9px] font-mono tracking-[0.25em]">SCROLL</span>

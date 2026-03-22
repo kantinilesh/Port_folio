@@ -29,12 +29,65 @@ export const NAV_MODULES = [
 ] as const;
 
 export const SKILLS = [
-  { category: 'LANGUAGES', items: ['Python', 'Java', 'SQL', 'C++'], status: 'ACTIVE' },
-  { category: 'BACKEND', items: ['REST APIs', 'Event-Driven', 'Microservices'], status: 'ACTIVE' },
-  { category: 'FRAMEWORKS', items: ['Spring Boot', 'Flask', 'FastAPI', 'React'], status: 'LOADED' },
-  { category: 'DATABASES', items: ['PostgreSQL', 'MySQL', 'DynamoDB', 'MongoDB'], status: 'ACTIVE' },
-  { category: 'CLOUD', items: ['AWS EC2', 'S3', 'Lambda', 'RDS', 'Azure', 'Docker'], status: 'ACTIVE' },
-  { category: 'DATA / ML', items: ['Pandas', 'NumPy', 'Scikit-learn', 'TensorFlow'], status: 'LOADED' },
+  {
+    category: 'LANGUAGES',
+    items: [
+      { name: 'Python', icon: 'https://cdn.simpleicons.org/python/white' },
+      { name: 'Java', icon: 'https://cdn.simpleicons.org/openjdk/white' },
+      { name: 'SQL', icon: 'https://cdn.simpleicons.org/postgresql/white' },
+      { name: 'C++', icon: 'https://cdn.simpleicons.org/cplusplus/white' },
+    ],
+    status: 'ACTIVE',
+  },
+  {
+    category: 'BACKEND',
+    items: [
+      { name: 'REST APIs', icon: 'https://cdn.simpleicons.org/fastapi/white' },
+      { name: 'Event-Driven', icon: 'https://cdn.simpleicons.org/apachekafka/white' },
+      { name: 'Microservices', icon: 'https://cdn.simpleicons.org/kubernetes/white' },
+    ],
+    status: 'ACTIVE',
+  },
+  {
+    category: 'FRAMEWORKS',
+    items: [
+      { name: 'Spring Boot', icon: 'https://cdn.simpleicons.org/spring/white' },
+      { name: 'Flask', icon: 'https://cdn.simpleicons.org/flask/white' },
+      { name: 'FastAPI', icon: 'https://cdn.simpleicons.org/fastapi/white' },
+      { name: 'React', icon: 'https://cdn.simpleicons.org/react/white' },
+    ],
+    status: 'LOADED',
+  },
+  {
+    category: 'DATABASES',
+    items: [
+      { name: 'PostgreSQL', icon: 'https://cdn.simpleicons.org/postgresql/white' },
+      { name: 'MySQL', icon: 'https://cdn.simpleicons.org/mysql/white' },
+      { name: 'DynamoDB', icon: 'https://cdn.simpleicons.org/amazondynamodb/white' },
+      { name: 'MongoDB', icon: 'https://cdn.simpleicons.org/mongodb/white' },
+    ],
+    status: 'ACTIVE',
+  },
+  {
+    category: 'CLOUD',
+    items: [
+      { name: 'AWS', icon: 'https://cdn.simpleicons.org/amazonwebservices/white' },
+      { name: 'Azure', icon: 'https://cdn.simpleicons.org/microsoftazure/white' },
+      { name: 'Docker', icon: 'https://cdn.simpleicons.org/docker/white' },
+      { name: 'Lambda', icon: 'https://cdn.simpleicons.org/awslambda/white' },
+    ],
+    status: 'ACTIVE',
+  },
+  {
+    category: 'DATA / ML',
+    items: [
+      { name: 'Pandas', icon: 'https://cdn.simpleicons.org/pandas/white' },
+      { name: 'NumPy', icon: 'https://cdn.simpleicons.org/numpy/white' },
+      { name: 'Scikit-learn', icon: 'https://cdn.simpleicons.org/scikitlearn/white' },
+      { name: 'TensorFlow', icon: 'https://cdn.simpleicons.org/tensorflow/white' },
+    ],
+    status: 'LOADED',
+  },
 ];
 
 export const EXPERIENCE = [
@@ -138,7 +191,7 @@ export const ACHIEVEMENTS = [
 ];
 
 export const SOCIALS = [
-  { label: 'GitHub', url: 'https://github.com/kantinilesh', icon: 'GH' },
-  { label: 'LinkedIn', url: 'https://linkedin.com/in/nileshkanti', icon: 'LI' },
-  { label: 'Email', url: 'mailto:kantinilesh2312@gmail.com', icon: 'EM' },
+  { label: 'GitHub', url: 'https://github.com/kantinilesh', icon: 'https://cdn.simpleicons.org/github/white' },
+  { label: 'LinkedIn', url: 'https://linkedin.com/in/nileshkanti', icon: 'https://cdn.simpleicons.org/linkedin/white' },
+  { label: 'Email', url: 'mailto:kantinilesh2312@gmail.com', icon: 'https://cdn.simpleicons.org/gmail/white' },
 ];

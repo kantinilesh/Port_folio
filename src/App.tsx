@@ -10,6 +10,7 @@ import { DataEngine } from './components/DataEngine';
 import { DeploymentLogs } from './components/DeploymentLogs';
 import { Simulations } from './components/Simulations';
 import { SystemStatus } from './components/SystemStatus';
+import { Extras } from './components/Extras';
 import { Terminal } from './components/Terminal';
 
 function App() {
@@ -25,7 +26,7 @@ function App() {
 
       {!loading && (
         <>
-          {/* Animated node background */}
+          {/* Animated hacker rain background */}
           <GridBackground />
 
           {/* Grid CSS background */}
@@ -42,6 +43,7 @@ function App() {
             <DeploymentLogs />
             <Simulations />
             <SystemStatus />
+            <Extras />
             <Terminal />
           </main>
         </>
